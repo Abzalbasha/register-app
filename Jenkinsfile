@@ -11,7 +11,6 @@ pipeline {
             DOCKER_PASS = 'dockerhub'
             IMAGE_NAME = "${DOCKER_USER}" + "/" + "${APP_NAME}"
             IMAGE_TAG = "${RELEASE}-${BUILD_NUMBER}"
-	    JENKINS_API_TOKEN = credentials("JENKINS_API_TOKEN")
     }
     stages{
         stage("Cleanup Workspace"){
@@ -59,7 +58,7 @@ pipeline {
         stage("Trivy Scan") {
             steps {
                script {
-	            sh ('docker run -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy image ashfaque9x/register-app-pipeline:latest --no-progress --scanners vuln  --exit-code 0 --severity HIGH,CRITICAL --format table')
+	            sh ('docker run -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy image abzalbasha/register-app-pipeline:latest --no-progress --scanners vuln  --exit-code 0 --severity HIGH,CRITICAL --format table')
                }
             }
         }
